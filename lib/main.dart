@@ -1,3 +1,4 @@
+import 'package:coding_challenge/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,13 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         primaryColorDark: Colors.white,
       ),
-      home: Scaffold(
-          body: SafeArea(
-            child: Container(
-              color: Colors.white,
-            ),
-          ),
-      ),
+      home: const LoginScreen(),
     );
   }
 }
