@@ -11,11 +11,11 @@ class AuthService {
   User? user;
   AccessToken? accessToken;
 
-  AuthService({required this.storage}) {
-    _initialize();
-  }
+  AuthService({required this.storage});
 
-  void _initialize() async {
+  /// This method should be called and awaited after object creation.
+  //todo: make this better.
+  Future<void> initialize() async {
     user ??= await storage.readUser();
     accessToken ??= await storage.readAccessToken();
   }

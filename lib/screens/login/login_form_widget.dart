@@ -69,9 +69,7 @@ class LoginFormState extends State<LoginForm> {
                                 {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return DashboardScreen(
-                                      user: user,
-                                    );
+                                    return DashboardScreen();
                                   }))
                                 }
                               else

@@ -1,3 +1,4 @@
+import 'package:coding_challenge/screens/dashboard/dashboard_screen.dart';
 import 'package:coding_challenge/screens/login/login_screen.dart';
 import 'package:coding_challenge/services/api_service.dart';
 import 'package:coding_challenge/services/auth_service.dart';
@@ -5,13 +6,15 @@ import 'package:coding_challenge/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final getIt = GetIt.instance;
 
   var storageService = StorageService();
   getIt.registerSingleton(storageService);
 
   var authService = AuthService(storage: storageService);
+  await authService.initialize();
   getIt.registerSingleton(authService);
 
   getIt.registerSingleton(ApiService(authService: authService));
@@ -47,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
         primaryColorDark: Colors.white,
       ),
-      home: const LoginScreen(),
+      home: GetIt.instance<AuthService>().isLoggedIn() ? DashboardScreen() : LoginScreen(),
     );
   }
 }
