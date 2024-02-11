@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coding_challenge/models/access_token.dart';
 import 'package:coding_challenge/models/user.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -11,12 +12,15 @@ class StorageService {
   static const String _accessTokenKey = 'accessToken';
   static const String _userKey = 'user';
 
-  void writeAccessToken(String accessToken) {
-    storage.write(key: _accessTokenKey, value: accessToken);
+  void writeAccessToken(AccessToken accessToken) {
+    storage.write(
+        key: _accessTokenKey, value: jsonEncode(accessToken.toJson()));
   }
 
-  Future<String?> readAccessToken() {
-    return storage.read(key: _accessTokenKey);
+  Future<AccessToken?> readAccessToken() {
+    return storage.read(key: _accessTokenKey).then((data) {
+      return (data != null) ? AccessToken.fromJson(jsonDecode(data)) : null;
+    });
   }
 
   void writeUser(User user) {
@@ -24,8 +28,8 @@ class StorageService {
   }
 
   Future<User?> readUser() {
-    return storage.read(key: _userKey).then((userData) {
-       return (userData != null) ? User.fromJson(jsonDecode(userData)) : null;
+    return storage.read(key: _userKey).then((data) {
+      return (data != null) ? User.fromJson(jsonDecode(data)) : null;
     });
   }
 }

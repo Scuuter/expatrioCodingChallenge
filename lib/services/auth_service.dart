@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coding_challenge/models/access_token.dart';
 import 'package:coding_challenge/models/user.dart';
 import 'package:coding_challenge/services/api_service.dart';
 import 'package:coding_challenge/services/storage_service.dart';
@@ -8,17 +9,19 @@ import 'package:flutter/foundation.dart';
 class AuthService {
   final StorageService storage;
   User? user;
-  String? accessToken;
+  AccessToken? accessToken;
 
-  AuthService({required this.storage});
+  AuthService({required this.storage}) {
+    _initialize();
+  }
+
+  void _initialize() async {
+    user ??= await storage.readUser();
+    accessToken ??= await storage.readAccessToken();
+  }
 
   Future<User?> login(String email, String password) async {
-    if (user != null) {
-      return user;
-    }
-    user = await storage.readUser();
-    if (user != null) {
-      accessToken = await storage.readAccessToken();
+    if (isLoggedIn()) {
       return user;
     }
 
@@ -27,7 +30,7 @@ class AuthService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
       user = User.fromJson(responseData['subject']);
-      accessToken = responseData['accessToken'];
+      accessToken = AccessToken.fromJson(responseData);
       //todo: check errors
       storage.writeAccessToken(accessToken!);
       storage.writeUser(user!);
@@ -37,5 +40,22 @@ class AuthService {
       }
     }
     return user;
+  }
+
+  bool isLoggedIn() {
+    //todo: differentiate not logged in and expired token statuses
+    if (user == null || _isAccessTokenExpired()) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool _isAccessTokenExpired()  {
+    if (accessToken == null) {
+      return true;
+    }
+
+    return accessToken!.expireAt.isBefore(DateTime.now());
   }
 }
