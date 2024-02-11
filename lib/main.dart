@@ -1,4 +1,4 @@
-import 'package:coding_challenge/login_screen.dart';
+import 'package:coding_challenge/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

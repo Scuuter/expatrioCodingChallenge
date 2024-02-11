@@ -1,5 +1,5 @@
-import 'package:coding_challenge/base_screen.dart';
-import 'package:coding_challenge/login_form_widget.dart';
+import 'package:coding_challenge/screens/base_screen.dart';
+import 'package:coding_challenge/screens/login/login_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

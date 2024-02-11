@@ -1,4 +1,5 @@
-import 'package:coding_challenge/dashboard_screen.dart';
+import 'package:coding_challenge/screens/dashboard/dashboard_screen.dart';
+import 'package:coding_challenge/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -9,11 +10,11 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    var authService = AuthService();
     return Form(
       key: _formKey,
       child: Padding(
@@ -55,19 +56,39 @@ class LoginFormState extends State<LoginForm> {
               ),
             ),
             Padding(
-              padding:
-              const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Center(
                 child: FilledButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return DashboardScreen();
-                      }));
-
+                      authService
+                          .login('tito+bs792@expatrio.com', 'nemampojma')
+                          .then(
+                            (user) => {
+                              if (user != null)
+                                {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return DashboardScreen(
+                                      user: user,
+                                    );
+                                  }))
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'There was an error during login')),
+                                  )
+                                }
+                            },
+                          );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Please enter your email and password')),
+                        const SnackBar(
+                            content:
+                                Text('Please enter your email and password')),
                       );
                     }
                   },
