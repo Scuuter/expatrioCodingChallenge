@@ -1,6 +1,7 @@
 import 'package:coding_challenge/screens/dashboard/dashboard_screen.dart';
 import 'package:coding_challenge/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    var authService = AuthService();
     return Form(
       key: _formKey,
       child: Padding(
@@ -61,7 +61,7 @@ class LoginFormState extends State<LoginForm> {
                 child: FilledButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      authService
+                      GetIt.instance<AuthService>()
                           .login('tito+bs792@expatrio.com', 'nemampojma')
                           .then(
                             (user) => {

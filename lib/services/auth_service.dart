@@ -6,9 +6,11 @@ import 'package:coding_challenge/services/storage_service.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthService {
-  final storage = StorageService();
+  final StorageService storage;
   User? user;
   String? accessToken;
+
+  AuthService({required this.storage});
 
   Future<User?> login(String email, String password) async {
     if (user != null) {

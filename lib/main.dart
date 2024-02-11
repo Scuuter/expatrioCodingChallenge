@@ -1,7 +1,21 @@
 import 'package:coding_challenge/screens/login/login_screen.dart';
+import 'package:coding_challenge/services/api_service.dart';
+import 'package:coding_challenge/services/auth_service.dart';
+import 'package:coding_challenge/services/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
+  final getIt = GetIt.instance;
+
+  var storageService = StorageService();
+  getIt.registerSingleton(storageService);
+
+  var authService = AuthService(storage: storageService);
+  getIt.registerSingleton(authService);
+
+  getIt.registerSingleton(ApiService(authService: authService));
+
   runApp(const MyApp());
 }
 
