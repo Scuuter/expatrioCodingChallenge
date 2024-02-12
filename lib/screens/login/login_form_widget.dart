@@ -14,6 +14,11 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
+  //todo: create other way to populate login data for tests
+  final emailController = TextEditingController()
+    ..text = 'tito+bs792@expatrio.com';
+  final passwordController = TextEditingController()..text = 'nemampojma';
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -23,14 +28,16 @@ class LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const TextInputField(
+            TextInputField(
               label: 'Email',
               validatorMessage: 'Please enter your email',
+              controller: emailController,
             ),
-            const TextInputField(
+            TextInputField(
               label: 'Password',
               validatorMessage: 'Please enter your password',
               obscureText: true,
+              controller: passwordController,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -39,7 +46,7 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       GetIt.instance<AuthService>()
-                          .login('tito+bs792@expatrio.com', 'nemampojma')
+                          .login(emailController.text, passwordController.text)
                           .then(
                             (user) => {
                               if (user != null)
