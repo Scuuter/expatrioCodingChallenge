@@ -1,5 +1,6 @@
 import 'package:coding_challenge/screens/dashboard/dashboard_screen.dart';
 import 'package:coding_challenge/services/singletons/auth_service.dart';
+import 'package:coding_challenge/shared/text_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -22,38 +23,14 @@ class LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: TextFormField(
-                //controller: emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Email",
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
-              ),
+            const TextInputField(
+              label: 'Email',
+              validatorMessage: 'Please enter your email',
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: TextFormField(
-                // controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Password",
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
+            const TextInputField(
+              label: 'Password',
+              validatorMessage: 'Please enter your password',
+              obscureText: true,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
