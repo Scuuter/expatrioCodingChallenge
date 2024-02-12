@@ -17,6 +17,8 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
 
   Set<TaxResidence?> fetchedResidencies = {};
 
+  bool wasResidenceDeleted = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,7 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               } else if (snapshot.hasData) {
-                if (fetchedResidencies.isEmpty) {
+                if (fetchedResidencies.isEmpty && !wasResidenceDeleted) {
                   fetchedResidencies = snapshot.requireData;
                 }
                 var countries = Country.availableCountries.toSet();
@@ -57,6 +59,11 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
                         ResidenceChooserWidget(
                           list: countries.toList(),
                           initialResidence: residence,
+                          onDelete: () {
+                            wasResidenceDeleted = true;
+                            fetchedResidencies.remove(residence);
+                            setState(() {});
+                          },
                         ),
                       TextButton(
                           onPressed: () {
@@ -67,8 +74,8 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
                           child: const Text("ADD ANOTHER")),
                       FilledButton(onPressed: () {}, child: const Text("SAVE")),
                     ],
-                      ),
-                    ));
+                  ),
+                ));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -84,10 +91,13 @@ class ResidenceChooserWidget extends StatefulWidget {
   final TaxResidence? initialResidence;
   final List<Country> list;
 
+  final VoidCallback? onDelete;
+
   ResidenceChooserWidget({
     super.key,
     required this.list,
     this.initialResidence,
+    this.onDelete,
   });
 
   @override
@@ -133,6 +143,11 @@ class _ResidenceChooserWidgetState extends State<ResidenceChooserWidget> {
           label: 'Tax ID',
           validatorMessage: 'Please enter your Tax ID',
           controller: taxIdController,
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: TextButton(
+              onPressed: widget.onDelete, child: const Text('DELETE')),
         ),
       ],
     );
