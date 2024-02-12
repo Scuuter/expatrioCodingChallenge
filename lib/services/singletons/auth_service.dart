@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:coding_challenge/models/access_token.dart';
 import 'package:coding_challenge/models/user.dart';
-import 'package:coding_challenge/services/api_service.dart';
-import 'package:coding_challenge/services/storage_service.dart';
+import 'package:coding_challenge/services/singletons/api_service.dart';
+import 'package:coding_challenge/services/singletons/storage_service.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthService {

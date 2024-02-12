@@ -1,8 +1,8 @@
 import 'package:coding_challenge/screens/dashboard/dashboard_screen.dart';
 import 'package:coding_challenge/screens/login/login_screen.dart';
-import 'package:coding_challenge/services/api_service.dart';
-import 'package:coding_challenge/services/auth_service.dart';
-import 'package:coding_challenge/services/storage_service.dart';
+import 'package:coding_challenge/services/singletons/api_service.dart';
+import 'package:coding_challenge/services/singletons/auth_service.dart';
+import 'package:coding_challenge/services/singletons/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 

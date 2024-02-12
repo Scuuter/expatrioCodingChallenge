@@ -1,6 +1,6 @@
 import 'package:coding_challenge/screens/base_screen.dart';
 import 'package:coding_challenge/screens/dashboard/update_tax_data_sheet.dart';
-import 'package:coding_challenge/services/auth_service.dart';
+import 'package:coding_challenge/services/singletons/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';

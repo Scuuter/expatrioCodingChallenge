@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:coding_challenge/services/auth_service.dart';
+import 'package:coding_challenge/services/singletons/auth_service.dart';
 import 'package:http/http.dart';
 
 class ApiService {
