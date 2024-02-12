@@ -22,9 +22,13 @@ class DashboardScreen extends StatelessWidget {
             SvgPicture.asset("assets/CryingGirl.svg"),
             FilledButton(
               onPressed: () {
-                showModalBottomSheet(context: context, builder: (context) {
-                  return UpdateTaxData();
-                });
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return UpdateTaxData();
+                  },
+                );
               },
               child: const Text("Update your tax data"),
             ),

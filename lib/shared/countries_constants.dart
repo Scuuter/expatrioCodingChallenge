@@ -1,13 +1,22 @@
-class CountriesConstants{
-  static var  nationality = [
-    { "code": 'AF', "label": 'Afghanistan', "eueea": false, "phone": '+93' },
-    { "code": 'AD', "label": 'Andorra', "eueea": false, "phone": '+376' },
-    { "code": 'AG', "label": 'Antigua and Barbuda', "eueea": false, "phone": '+1-268' },
-    { "code": 'AI', "label": 'Anguilla', "eueea": false, "phone": '+1-264' },
-    { "code": 'AL', "label": 'Albania', "eueea": false, "phone": '+355' },
-    { "code": 'AM', "label": 'Armenia', "eueea": false, "phone": '+374' },
-    { "code": 'AO', "label": 'Angola', "eueea": false, "phone": '+244' },
-    { "code": 'AQ', "label": 'Antarctica', "eueea": false, "phone": '+672' },
+/// This doesn't look good.
+/// Probably needed strictly typed constants with all fields connected to [code] field.
+/// Even better to get this from API.
+/// TODO: refactor. Requirements: easy to add, change and delete country and its fields, without errors from typos and human mistakes.
+class CountriesConstants {
+  static var nationality = [
+    {"code": 'AF', "label": 'Afghanistan', "eueea": false, "phone": '+93'},
+    {"code": 'AD', "label": 'Andorra', "eueea": false, "phone": '+376'},
+    {
+      "code": 'AG',
+      "label": 'Antigua and Barbuda',
+      "eueea": false,
+      "phone": '+1-268'
+    },
+    {"code": 'AI', "label": 'Anguilla', "eueea": false, "phone": '+1-264'},
+    {"code": 'AL', "label": 'Albania', "eueea": false, "phone": '+355'},
+    {"code": 'AM', "label": 'Armenia', "eueea": false, "phone": '+374'},
+    {"code": 'AO', "label": 'Angola', "eueea": false, "phone": '+244'},
+    {"code": 'AQ', "label": 'Antarctica', "eueea": false, "phone": '+672'},
     { "code": 'AR', "label": 'Argentina', "eueea": false, "phone": '+54' },
     { "code": 'AS', "label": 'American Samoa', "eueea": false, "phone": '+1-684' },
     { "code": 'AT', "label": 'Austria', "eueea": true, "phone": '+43' },

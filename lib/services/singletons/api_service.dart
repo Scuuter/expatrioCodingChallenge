@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coding_challenge/services/singletons/auth_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 class ApiService {
@@ -22,6 +23,25 @@ class ApiService {
         'password': password,
       }),
     );
+    if (kDebugMode) {
+      print(response.body);
+    }
+    return response;
+  }
+
+  Future<Response> getTaxData() async {
+    var user = authService.user;
+
+    var response = await get(
+      Uri.parse('${baseUrl}v3/customers/${user?.id}/tax-data'),
+      headers: {
+        'Authorization': 'Bearer ${authService.accessToken?.token}',
+        'Accept': '*/*',
+      },
+    );
+    if (kDebugMode) {
+      print(response.body);
+    }
     return response;
   }
 }
