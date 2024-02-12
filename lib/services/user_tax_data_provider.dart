@@ -5,6 +5,8 @@ import 'package:coding_challenge/services/singletons/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
+/// Service to handle user tax data on dashboard screen.
+/// todo: there should be logic for updating server data with new data from widget.
 class UserTaxDataProvider {
   final apiService = GetIt.instance<ApiService>();
 

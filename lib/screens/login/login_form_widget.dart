@@ -4,6 +4,7 @@ import 'package:coding_challenge/shared/text_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+/// Widget to handle authorization process on login screen.
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
 

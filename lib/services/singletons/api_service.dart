@@ -4,6 +4,9 @@ import 'package:coding_challenge/services/singletons/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
+/// Service for handling api calls.
+/// Handles urls and headers.
+/// todo: Should handle network errors.
 class ApiService {
   static const baseUrl = "https://dev-api.expatrio.com/";
 

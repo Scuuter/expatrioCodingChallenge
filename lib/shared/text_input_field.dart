@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Custom text form field.
+/// todo: add titles as in design.
 class TextInputField extends StatefulWidget {
   final String label;
   final String validatorMessage;

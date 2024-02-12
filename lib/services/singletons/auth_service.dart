@@ -6,6 +6,8 @@ import 'package:coding_challenge/services/singletons/api_service.dart';
 import 'package:coding_challenge/services/singletons/storage_service.dart';
 import 'package:flutter/foundation.dart';
 
+/// Service for handling authorization logic and accessing user data.
+/// todo: this logic should be split in two classes.
 class AuthService {
   final StorageService storage;
   User? user;
@@ -31,7 +33,7 @@ class AuthService {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
       user = User.fromJson(responseData['subject']);
       accessToken = AccessToken.fromJson(responseData);
-      //todo: check errors
+      //todo: check errors from converting
       storage.writeAccessToken(accessToken!);
       storage.writeUser(user!);
     } else {

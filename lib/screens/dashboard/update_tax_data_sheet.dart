@@ -5,6 +5,7 @@ import 'package:coding_challenge/shared/text_input_field.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
+/// Widget to handle receiving and updating tax residencies information of authorized user.
 class UpdateTaxData extends StatefulWidget {
   final taxDataProvider = UserTaxDataProvider();
 
@@ -37,6 +38,8 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
       builder: (context, scrollController) => Column(
         children: [
           const Text("Personal Information"),
+          //too much different logic in one class
+          //todo: split widget into "sheet" part and "logical" part
           FutureBuilder(
             future: fetchData,
             builder: (
@@ -53,6 +56,7 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
                 countries.removeAll(
                     fetchedResidencies.map((residence) => residence?.country));
                 return Form(
+                  //todo: fix scrolling with large list
                     child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(

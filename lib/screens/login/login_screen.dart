@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
               'assets/2019_XP_logo_white.png',
               width: 200,
             ),
-            LoginForm(),
+            const LoginForm(),
             Lottie.asset('assets/login-background.json'),
           ],
         ),
