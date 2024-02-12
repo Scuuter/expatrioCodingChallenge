@@ -6,11 +6,17 @@ class TextInputField extends StatefulWidget {
 
   final bool obscureText;
 
+  final TextEditingController? controller;
+
+  final String? initialValue;
+
   const TextInputField({
     super.key,
     required this.label,
     required this.validatorMessage,
     this.obscureText = false,
+    this.controller,
+    this.initialValue,
   });
 
   @override
@@ -22,18 +28,23 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: TextFormField(
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: widget.label,
+      child: SizedBox(
+        height: 50,
+        child: TextFormField(
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: widget.label,
+          ),
+          controller: widget.controller,
+          initialValue: widget.initialValue,
+          obscureText: widget.obscureText,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return widget.validatorMessage;
+            }
+            return null;
+          },
         ),
-        obscureText: widget.obscureText,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return widget.validatorMessage;
-          }
-          return null;
-        },
       ),
     );
   }

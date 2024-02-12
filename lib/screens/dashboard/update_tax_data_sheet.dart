@@ -15,7 +15,7 @@ class UpdateTaxData extends StatefulWidget {
 class _UpdateTaxDataState extends State<UpdateTaxData> {
   final taxDataProvider = UserTaxDataProvider();
 
-  late List<TaxResidence> residencies;
+  Set<TaxResidence?> fetchedResidencies = {};
 
   @override
   void initState() {
@@ -40,26 +40,35 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               } else if (snapshot.hasData) {
+                if (fetchedResidencies.isEmpty) {
+                  fetchedResidencies = snapshot.requireData;
+                }
                 var countries = Country.availableCountries.toSet();
-                var residencies =
-                    snapshot.requireData.map((residence) => residence.country);
-                countries.removeAll(residencies);
+                countries.removeAll(
+                    fetchedResidencies.map((residence) => residence?.country));
                 return Form(
                     child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
                     children: [
-                      for (var residence in snapshot.requireData)
+                      if (fetchedResidencies.isEmpty)
+                        ResidenceChooserWidget(list: countries.toList()),
+                      for (var residence in fetchedResidencies)
                         ResidenceChooserWidget(
                           list: countries.toList(),
-                          currentResidence: residence,
+                          initialResidence: residence,
                         ),
                       TextButton(
-                          onPressed: () {}, child: const Text("ADD ANOTHER")),
+                          onPressed: () {
+                            fetchedResidencies.add(TaxResidence(
+                                id: '', countryCode: countries.first.code));
+                            setState(() {});
+                          },
+                          child: const Text("ADD ANOTHER")),
                       FilledButton(onPressed: () {}, child: const Text("SAVE")),
                     ],
-                  ),
-                ));
+                      ),
+                    ));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -72,13 +81,13 @@ class _UpdateTaxDataState extends State<UpdateTaxData> {
 }
 
 class ResidenceChooserWidget extends StatefulWidget {
-  final TaxResidence? currentResidence;
+  final TaxResidence? initialResidence;
   final List<Country> list;
 
-  const ResidenceChooserWidget({
+  ResidenceChooserWidget({
     super.key,
     required this.list,
-    this.currentResidence,
+    this.initialResidence,
   });
 
   @override
@@ -86,10 +95,16 @@ class ResidenceChooserWidget extends StatefulWidget {
 }
 
 class _ResidenceChooserWidgetState extends State<ResidenceChooserWidget> {
+  TaxResidence? currentResidence;
+
+  final TextEditingController taxIdController = TextEditingController();
+
   @override
   void initState() {
-    if (widget.currentResidence != null) {
-      widget.list.add(widget.currentResidence!.country);
+    if (widget.initialResidence != null) {
+      currentResidence = widget.initialResidence;
+      widget.list.add(currentResidence!.country);
+      taxIdController.text = currentResidence!.id;
     }
     super.initState();
   }
@@ -103,11 +118,22 @@ class _ResidenceChooserWidgetState extends State<ResidenceChooserWidget> {
           child: DropdownSearch<Country>(
             itemAsString: (country) => country.label,
             items: widget.list,
-            selectedItem: widget.currentResidence?.country,
+            selectedItem: widget.initialResidence?.country,
+            onChanged: (country) {
+              currentResidence = (country == null)
+                  ? null
+                  : TaxResidence(
+                      id: "",
+                      countryCode: country.code,
+                    );
+            },
           ),
         ),
-        const TextInputField(
-            label: 'Tax ID', validatorMessage: 'Please enter your Tax ID'),
+        TextInputField(
+          label: 'Tax ID',
+          validatorMessage: 'Please enter your Tax ID',
+          controller: taxIdController,
+        ),
       ],
     );
   }

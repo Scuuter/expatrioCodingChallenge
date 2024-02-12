@@ -30,4 +30,20 @@ class Country {
       _$CountryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CountryToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Country &&
+          runtimeType == other.runtimeType &&
+          code == other.code &&
+          label == other.label;
+
+  @override
+  int get hashCode => code.hashCode ^ label.hashCode;
 }

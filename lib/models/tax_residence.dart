@@ -25,8 +25,34 @@ class TaxResidence {
     country = Country.fromCode(countryCode);
   }
 
+  TaxResidence copyWith({
+    String? id,
+    String? countryCode,
+  }) {
+    return TaxResidence(
+      id: id ?? this.id,
+      countryCode: countryCode ?? this.countryCode,
+    );
+  }
+
   factory TaxResidence.fromJson(Map<String, dynamic> json) =>
       _$TaxResidenceFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaxResidenceToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TaxResidence &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          countryCode == other.countryCode;
+
+  @override
+  int get hashCode => id.hashCode ^ countryCode.hashCode;
 }
