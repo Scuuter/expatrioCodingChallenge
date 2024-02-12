@@ -33,24 +33,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
-            TargetPlatform.android:  CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS:  CupertinoPageTransitionsBuilder(),
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           },
         ),
         canvasColor: Colors.transparent,
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor:  Color.fromRGBO(65, 171, 158, 1),
-          selectionColor:  Color.fromRGBO(65, 171, 158, 1),
-          selectionHandleColor:  Color.fromRGBO(65, 171, 158, 1),
-        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: createMaterialColor(Colors.white)).copyWith(
-          secondary: createMaterialColor(const Color.fromRGBO(65, 171, 158, 1)),
-        ),
-        primaryColorDark: Colors.white,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromRGBO(65, 171, 158, 1),
+        ).copyWith(primary: const Color.fromRGBO(65, 171, 158, 1)),
       ),
-      home: GetIt.instance<AuthService>().isLoggedIn() ? DashboardScreen() : LoginScreen(),
+      home: GetIt.instance<AuthService>().isLoggedIn()
+          ? DashboardScreen()
+          : LoginScreen(),
     );
   }
 }
@@ -74,4 +69,3 @@ MaterialColor createMaterialColor(Color color) {
   }
   return MaterialColor(color.value, swatch);
 }
-
