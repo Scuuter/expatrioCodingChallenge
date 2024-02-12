@@ -18,24 +18,32 @@ From the project root folder run these commands (you must have installed and con
 your machine):
 
 - get dependencies
-  `flutter pub get`
+
+  ```flutter pub get```
+
 - generate code (I didn't commit generated files into git)
-  `dart run build_runner build`
+
+  ```dart run build_runner build```
+
 - build and run
-  `flutter run`
+
+  ```flutter run```
 
 ## Overview of project
 
 The task is not finished: I've spent too much time setting up a proper authorisation flow and
 underestimated the complexity of the tax data widget.
+
 I have made a decision to add as few additional dependencies as possible and use the ones already
 provided. Otherwise I would add some state management mechanism (I think Provider is enough for this
 scope).
+
 The project definitely lacks error handling when working with the API and user input. And the
 critical logic should be tested.
+
 I have also added to-dos in the code with more minor improvements.
 
-# Next steps
+### Next steps
 
 - add logic for updating tax data
 - error handling
