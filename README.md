@@ -14,7 +14,12 @@ link is here -> [click ](https://drive.google.com/drive/folders/1MuyOdR152tvVVct
 
 ## Set up and run project
 
-From the project root folder run these commands (you must have installed and configured flutter on
+You can simply download and install .apk file from latest release on available android device or
+emulator.
+
+#### Or build it yourself
+
+From the project root folder run these commands (you must have installed and configured `flutter` on
 your machine):
 
 - get dependencies
